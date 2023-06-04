@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <title>Cinema Ticket!</title>
+</head>
+<body>
+
+<div class="container">
+  <h3>Schedule List</h3>
+  <hr>
+  <div sec:authorize="hasRole('ADMIN')" >
+    <a th:href="@{/web-public/schedule/add}"
+       class="btn btn-primary btn-sm mb-3">
+      Add Schedule
+    </a>
+  </div>
+  <div style="padding-bottom: 10px;">
+    <form th:action="@{/authLogout}" method="post">
+      <input type="submit" value="Logout">
+    </form>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th>From</th>
+      <th>To</th>
+      <th>Title</th>
+      <th>Studio</th>
+      <th>Price</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="schedule : ${schedules}">
+
+      <td th:text="${schedule.fromDate}" />
+      <td th:text="${schedule.toDate}" />
+      <td th:text="${schedule.film.title}" />
+      <td th:text="${schedule.studio.name}" />
+      <td th:text="${schedule.price}" />
+      <!-- Add update button link-->
+      <td>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/web-public/schedule/update/{scheduleId}(scheduleId = ${schedule.scheduleId})}"
+           class="btn btn-warning btn-sm">
+          Update
+        </a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/web-public/schedule/delete(scheduleId=${schedule.scheduleId})}"
+           class="btn btn-danger btn-sm"
+           onclick="if (!confirm('Are you sure you want sto delete this schedule?')) return false">
+          Delete
+        </a>
+        <a th:href="@{/web-public/schedule/details/{scheduleId}(scheduleId = ${schedule.scheduleId})}"
+           class="btn btn-info btn-sm">
+          Show Details
+        </a>
+        <div>
+          User: <span sec:authentication="name">NOT FOUND</span>
+          Spring Roles: <span sec:authentication="principal.authorities">NOT FOUND</span>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+</body>
+</html>

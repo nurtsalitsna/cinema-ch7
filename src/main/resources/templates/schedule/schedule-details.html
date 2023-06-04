@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Schedule Detail</title>
+</head>
+<body>
+
+    <div class="container">
+        <h3 class="mx-auto text-center mt-5">Schedule Details</h3>
+        <hr>
+        <a th:href="@{/web-public/schedule/list}"
+           class="btn btn-info btn-sm text-center">
+            Back to List
+        </a>
+        <hr>
+
+        <table class="table table-bordered table-striped ">
+            <thead class="table-dark">
+            <tr>
+                <th class="text-center">Name</th>
+                <th class="text-center">Detail</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>From Date</td>
+                    <td th:text="${schedule.fromDate}" />
+                </tr>
+                <tr>
+                    <td>To Date</td>
+                    <td th:text="${schedule.toDate}" />
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td th:text="${schedule.price}" />
+                </tr>
+
+                <tr class="table-secondary">
+                    <th colspan="2" class="text-center">Film</th>
+                </tr>
+                <tr>
+                    <td>Title</td>
+                    <td th:text="${schedule.film.title}"/>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td th:text="${schedule.film.description}"/>
+                </tr>
+                <tr>
+                    <td>Release Date</td>
+                    <td th:text="${schedule.film.releaseDate}"/>
+                </tr>
+                <tr>
+                    <td>Actors</td>
+                    <td th:text="${schedule.film.actors.toString()}"/>
+                </tr>
+                <tr>
+                    <td>Score Rating</td>
+                    <td th:text="${schedule.film.scoreRating}"/>
+                </tr>
+
+                <tr class="table-secondary">
+                    <th colspan="2" class="text-center">Studio</th>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td th:text="${schedule.studio.name}"/>
+                </tr>
+                <tr>
+                    <td>Capacity</td>
+                    <td th:text="${schedule.studio.capacity}"/>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+    </div>
+</body>
+</html>
